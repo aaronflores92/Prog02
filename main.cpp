@@ -21,6 +21,7 @@ class Node
 {
 	public:
 		Node() : weight(0), name(""), next_link(0), prev_link(0) { }
+		//~ Node();		//class destructor still missing
 		Node(int & v, std::string & n) : weight(v), name(n), next_link(0), prev_link(0) { }
 		int weight;
 		std::string name;
@@ -34,16 +35,15 @@ class DoubleList
 {
 	public:
 		DoubleList() : head_by_weight(0), tail_by_weight(0), head_by_name(0), tail_by_name(0), lsize(0) { } // 33, tail_by_weight(0) { }
-		//~ DoubleList(); 
+		//~ DoubleList();		class destructor still missing
 		void add(int & val, std::string name);
-		//void add_by_name(int & val, std::string name);
 		bool weight_empty() {return head_by_weight == 0; }
 		bool name_empty() {return head_by_name == 0; }
 		void print_by_weight(int n);
 		void print_by_name(int n);
 		int size() {return lsize; }
 		
-	//private:
+	//private: if the following are public, the list will fail at time of ordering
 		Node * head_by_weight;
 		Node * tail_by_weight;
 		Node * head_by_name;
