@@ -36,7 +36,7 @@ class DoubleList
 		DoubleList() : head(0), tail(0), lsize(0) { } // 33, tail(0) { }
 		//~ DoubleList(); 
 		void add_by_weight(int & val, std::string name);
-		void add_by_name(int & val, std::string name)
+		void add_by_name(int & val, std::string name);
 		bool empty() {return head == 0; }
 		void move_forward(int n);
 		int size() {return lsize; }
@@ -97,6 +97,56 @@ void DoubleList::add_by_weight(int & val, std::string name)
 	
 }
 
+void DoubleList::add_by_name(int & val, std::string name)
+{	
+	Node * N = new Node(val, name); 								//creates new node that will be added
+	if(empty())		// if the list is empty, insert new node and make it head & tail
+	{
+		head = tail = N;
+		lsize++;
+	}
+	
+	else if(head->name >= N->name)		//if new node weight is smaller than head weight, insert new node before head and set as new head
+	{
+		head->prev_link = N;
+		N->next_link = head;
+		head = N;
+		lsize++;
+	}
+	
+	else if(tail->name <= N->name)		//if new node weight is larger than tail weight, insert new node after tail and set as new tail
+	{
+		tail->next_link = N;
+		N->prev_link = tail;
+		tail = N;
+		lsize++;
+	}
+	
+	else if(head->name < N->name and tail->name > N->name)		//if new node weight is between head and tail weight, insert in appropriate spot between head and tail
+	{
+		int n = size(), i = 0;
+		Node * current = new Node();
+		current = head;
+		while(i < n)
+		{
+			if(N->name >= current->name && N->name <= current->next_link->name)
+			{
+				N->next_link = current->next_link;
+				current->next_link->prev_link = N;
+				current->next_link = N;
+				N->prev_link = current;
+				break;
+			}
+			current = current->next_link;
+			i++;
+		}
+		lsize++;
+	}
+	
+	else std::cout << "better luck pal" << endl;
+	
+}
+
 void DoubleList::move_forward(int n)
 {
 	Node * current = new Node();
@@ -113,17 +163,29 @@ void DoubleList::move_forward(int n)
 int main()
 {
 	std:: cout << "Hello World!" << endl;
-	DoubleList test, test2;
-	int x = 3;
+	DoubleList by_weight, by_name;
+	
 	std::cout << "Adding to list..." << endl;
-	test.add_by_weight(x, "Aaron");
+	
+	int x = 3;
+	by_weight.add_by_weight(x, "Aaron");
+	by_name.add_by_name(x, "Aaron");
+	
 	x = 5;
-	test.add_by_weight(x, "Alex");
+	by_weight.add_by_weight(x, "Alex");
+	by_name.add_by_name(x, "Alex");
+	
 	x = 1;
-	test.add_by_weight(x, "Daniela");
+	by_weight.add_by_weight(x, "Daniela");
+	by_name.add_by_name(x, "Daniela");
+	
 	x = 2;
-	test.add_by_weight(x, "Delia");
+	by_weight.add_by_weight(x, "Delia");
+	by_name.add_by_name(x, "Delia");
+	
 	std::cout << "Displaying list ordered by weight:" << endl;
-	test.move_forward(test.size());
+	by_weight.move_forward(by_weight.size());
+	std::cout << "Displaying list ordered by name:" << endl;
+	by_name.move_forward(by_name.size());
 	return 0;
 }
