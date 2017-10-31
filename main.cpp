@@ -169,25 +169,26 @@ void DoubleList::print_by_name(int n)
 
 int main()
 {
+	std::cout << "Prepare to add values to the list..." << endl;
+	
+	std::string name = "";
+	int i = 0, weight = 0;
 	DoubleList test;
-	std::cout << "Adding to list..." << endl;
 	
-	int x = 3;
-	test.add(x, "Aaron");
+	while(i < 15)
+	{
+		std::cout << "Please enter a name to append to the list (enter 'exit' to stop): " << endl;
+		std::cin >> name;
+		if(name == "exit") break;
+		std::cout << "Please enter the person's weight to append to the list: " << endl;
+		std::cin >> weight;
+		test.add(weight, name);
+		i++;
+	}
 	
-	x = 5;
-	test.add(x, "Alex");
-	
-	x = 1;
-	test.add(x, "Daniela");
-	
-	x = 2;
-	test.add(x, "Delia");
-	
-	std::cout << "Displaying list ordered by weight:" << endl;
+	std::cout << "Printing list by Weight:" << endl;
 	test.print_by_weight(test.size());
-	
-	std::cout << "Displaying list ordered by name:" << endl;
+	std::cout << "Printing list by Name:" << endl;
 	test.print_by_name(test.size());
 	
 	return 0;
