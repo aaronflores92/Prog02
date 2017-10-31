@@ -98,26 +98,26 @@ void DoubleList::add(int & val, std::string name)
 	
 	
 	Node * N_by_name = new Node(val, name); 								//creates new node that will be added
-	if(name_empty())		// if the list is empty, insert new node and make it head_by_weight & tail_by_weight
+	if(name_empty())		// if the list is empty, insert new node and make it head_by_name & tail_by_name
 	{
 		head_by_name = tail_by_name = N_by_name;
 	}
 	
-	else if(head_by_name->name >= N_by_name->name)		//if new node weight is smaller than head_by_weight weight, insert new node before head_by_weight and set as new head_by_weight
+	else if(head_by_name->name >= N_by_name->name)		//if new node name is smaller than head_by_name name, insert new node before head_by_name and set as new head_by_name
 	{
 		head_by_name->prev_link = N_by_name;
 		N_by_name->next_link = head_by_name;
-		head_by_name = N_by_name;
+		head_by_name = N_by_name;00
 	}
 	
-	else if(tail_by_name->name <= N_by_name->name)		//if new node weight is larger than tail_by_weight weight, insert new node after tail_by_weight and set as new tail_by_weight
+	else if(tail_by_name->name <= N_by_name->name)		//if new node name is larger than tail_by_name name, insert new node after tail_by_name and set as new tail_by_name
 	{
 		tail_by_name->next_link = N_by_name;
 		N_by_name->prev_link = tail_by_name;
 		tail_by_name = N_by_name;
 	}
 	
-	else if(head_by_name->name < N_by_name->name and tail_by_name->name > N_by_name->name)		//if new node weight is between head_by_weight and tail_by_weight weight, insert in appropriate spot between head_by_weight and tail_by_weight
+	else if(head_by_name->name < N_by_name->name and tail_by_name->name > N_by_name->name)		//if new node name is between head_by_name and tail_by_name name, insert in appropriate spot between head_by_name and tail_by_name
 	{
 		int n = size(), i = 0;
 		Node * current = new Node();
